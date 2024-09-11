@@ -1,37 +1,12 @@
 import axios from 'axios';
+import { VideoItem, VideoStatistics, VideoStatisticsResponse, YoutubeData, VideoSnippet } from '@/types/youtube';
 
-// Constants
-const API_KEY = 'AIzaSyChYwvuZFZOyiBM1OkPA7Fimu1XfI0d5SA';
+
+
+// const API_KEY = 'AIzaSyChYwvuZFZOyiBM1OkPA7Fimu1XfI0d5SA';
+const API_KEY = 'AIzaSyAPfS0kmoUVn_xREJPI8QMNbZL5jj7-6QE';
 const CHANNEL_ID = 'UCtb33Ciysb6TEkXaORcVmpg'; // Sant Rampal Ji Maharaj
 
-// Type Definitions
-interface VideoSnippet {
-    title: string;
-    thumbnails: {
-        default: {
-            url: string;
-        };
-    };
-}
-
-interface VideoItem {
-    id: {
-        videoId: string;
-    };
-    snippet: VideoSnippet;
-}
-
-interface VideoStatistics {
-    viewCount: string;
-    likeCount: string;
-    commentCount: string;
-}
-
-interface VideoStatisticsResponse {
-    items: [{
-        statistics: VideoStatistics;
-    }];
-}
 
 // Get yesterday's date in DD-MM-YYYY format
 function getYesterdayDate(): string {
@@ -43,6 +18,7 @@ function getYesterdayDate(): string {
     const year = yesterday.getFullYear();
     return `${day}-${month}-${year}`;
 }
+
 
 // Fetch video details from YouTube
 async function fetchYouTubeVideos(searchKeyword: string): Promise<VideoItem[]> {
@@ -71,13 +47,7 @@ async function fetchVideoStatistics(videoId: string): Promise<VideoStatistics> {
 // Main function to get YouTube data
 export async function getYouTubeData() {
     const searchKeyword = getYesterdayDate();
-    const videoDataArray: {
-        title: string;
-        views: string;
-        likes: string;
-        comments: string;
-        thumbnail: string;
-    }[] = [];
+    const videoDataArray: YoutubeData[] = [];
 
     try {
         const videos = await fetchYouTubeVideos(searchKeyword);
@@ -85,7 +55,8 @@ export async function getYouTubeData() {
         for (const video of videos) {
             const videoId = video.id.videoId;
             const videoTitle = video.snippet.title;
-            const videoThumbnail = video.snippet.thumbnails.default.url;
+            const videoDescription = video.snippet.description;
+            const videoThumbnail = video.snippet.thumbnails.medium.url;
 
             try {
                 const stats = await fetchVideoStatistics(videoId);
@@ -95,6 +66,7 @@ export async function getYouTubeData() {
                     likes: stats.likeCount,
                     comments: stats.commentCount,
                     thumbnail: videoThumbnail,
+                    description: videoDescription
                 };
 
                 // Add video data to the array
