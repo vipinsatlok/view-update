@@ -21,10 +21,8 @@ const YoutubeLive = async () => {
                 </div>
 
 
-
-
                 <div className="p-5 font-sans bg-gray-100">
-                    {youtubeVideoData.map((video, index) => (
+                    {youtubeVideoData.length && youtubeVideoData.map((video, index) => (
                         <div
                             key={index}
                             className="mb-5 p-5 bg-white border border-gray-200 shadow-lg grid grid-cols-4"
