@@ -5,8 +5,9 @@ import React from 'react'
 const LivePage = () => {
     return (
         <div>
-            <LiveSwither />
-            <YoutubeLive />
+            <YoutubeLive>
+                
+            </YoutubeLive>
         </div>
     )
 }
