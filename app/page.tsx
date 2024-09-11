@@ -1,7 +1,4 @@
 import LiveSwither from "@/components/liveSwither";
-import YoutubeLive from "@/components/youtubeLive";
-
-
 
 export default async function YouTubePage() {
   try {

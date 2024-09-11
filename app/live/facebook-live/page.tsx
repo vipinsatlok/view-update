@@ -39,9 +39,11 @@ const FacebookLive = async () => {
         <div className="font-sans">
             <LiveSwither />
 
-            <div className='flex justify-between items-center mb-7'>
-                <h1 className="text-3xl text-gray-800 font-bold">Facebook Live Satsang</h1>
-                <DatePicker label="Search Date" className="max-w-[300px]" />
+            <div className='flex flex-col md:flex-row gap-10 justify-start items-start md:justify-between md:items-center mb-7'>
+                <h1 className="text-3xl text-gray-800 font-bold text-start w-full">Facebook Live Satsang</h1>
+                <div className='w-full md:justify-end md:flex'>
+                    <DatePicker label="Search Date" className="md:max-w-[300px] w-full" />
+                </div>
             </div>
 
             {facebookData.length && facebookData.map((post, index) => (
